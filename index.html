@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Mr. jones</title>
+
+<style>
+  body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    margin: 15px 0;
+    font-weight: normal;
+  }
+
+  #chat {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+  }
+
+  .msg {
+    margin-bottom: 8px;
+  }
+
+  .ia {
+    color: #aaa;
+  }
+
+  #inputArea {
+    display: flex;
+    padding: 10px;
+    background: #111;
+  }
+
+  input {
+    flex: 1;
+    background: #222;
+    border: none;
+    color: white;
+    padding: 10px;
+    outline: none;
+  }
+
+  button {
+    margin-left: 5px;
+    padding: 10px;
+    background: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>Mr. jones</h1>
+
+<div id="chat"></div>
+
+<div id="inputArea">
+  <input id="entrada" placeholder="Digite uma palavra">
+  <button onclick="enviar()">Enviar</button>
+</div>
+
+<script>
+const chat = document.getElementById("chat");
+
+function adicionarMsg(texto, classe="") {
+  const div = document.createElement("div");
+  div.className = "msg " + classe;
+  div.textContent = texto;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function respostaIA(palavra) {
+
+  if (palavra === "192740") {
+    return "Algo acontecerá.";
+  }
+
+  const respostas = {
+    medo: "O medo observa em silêncio.",
+    tempo: "O tempo não para para ninguém.",
+    erro: "Nem todo erro quer ser corrigido.",
+    luz: "A luz não revela tudo.",
+    fim: "Todo fim é apenas uma dobra.",
+    começo: "Alguns começos não deveriam existir."
+  };
+
+  return respostas[palavra] || "Não reconheço essa palavra.";
+}
+
+function enviar() {
+  const input = document.getElementById("entrada");
+  const texto = input.value.trim();
+
+  if (!texto) return;
+
+  // verifica se tem mais de uma palavra
+  if (texto.split(" ").length > 1) {
+    adicionarMsg("IA: Apenas uma palavra.", "ia");
+    input.value = "";
+    return;
+  }
+
+  adicionarMsg("Você: " + texto);
+  const resposta = respostaIA(texto.toLowerCase());
+  adicionarMsg("IA: " + resposta, "ia");
+
+  input.value = "";
+}
+</script>
+
+</body>
+</html>
